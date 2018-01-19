@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import java.util.HashMap;
+
 public class LoginActivity extends Activity implements View.OnClickListener {
 
     private Button valider;
@@ -23,11 +25,17 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         valider = (Button) findViewById(R.id.bValider);
         valider.setOnClickListener(this) ;
         login = (EditText) findViewById(R.id.editLogin);
-        login = (EditText) findViewById(R.id.editPwd);
+        password = (EditText) findViewById(R.id.editPwd);
     }
 
     @Override
     public void onClick(View v) {
-
+        HashMap<String, String> myMap = new HashMap<String, String>();
+        myMap.put("username", login.getText().toString());
+        myMap.put("password", password.getText().toString());
+        PostRequest p = new PostRequest("http://raphaelbischof.fr/messaging/", myMap);
+        HttpPostHandler handler = new HttpPostHandler();
+        handler.execute(p);
+        
     }
 }

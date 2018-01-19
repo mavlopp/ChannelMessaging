@@ -24,6 +24,10 @@ public class HttpPostHandler extends AsyncTask<PostRequest, Integer, String> {
 
     private ArrayList<OnDownloadListener> listeners;
 
+    public ArrayList<OnDownloadListener> getListeners() {
+        return listeners;
+    }
+
     public void addOnDownloadListener(OnDownloadListener listener){
         this.listeners.add(listener);
     }
@@ -31,6 +35,13 @@ public class HttpPostHandler extends AsyncTask<PostRequest, Integer, String> {
     @Override
     protected String doInBackground(PostRequest... params) {
         return performPostCall(params[0].getUrl(), params[0].getPostParams());
+    }
+
+    @Override
+    protected void onPostExecute(String result) {
+        for (OnDownloadListener l: listeners) {
+            l.onDownloadComplete(result);
+        }
     }
 
     public String performPostCall(String requestURL, HashMap<String, String> postDataParams) {
