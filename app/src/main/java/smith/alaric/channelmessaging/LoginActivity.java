@@ -50,8 +50,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, OnD
         HttpPostHandler handler = new HttpPostHandler();
         handler.addOnDownloadListener(this);
         handler.execute(p);
-
-
     }
 
     @Override

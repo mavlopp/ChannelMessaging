@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -53,14 +54,10 @@ public class ChannelListActivity extends Activity implements OnDownloadListener,
         HttpPostHandler handler = new HttpPostHandler();
         handler.addOnDownloadListener(this);
         handler.execute(p);
-
-
     }
 
     @Override
     public void onDownloadComplete(String downloadedContent) {
-        //tv.setText(downloadedContent.toString());
-
         Gson gson = new Gson();
         ChannelList obj = gson.fromJson(downloadedContent, ChannelList.class);
 
@@ -78,6 +75,8 @@ public class ChannelListActivity extends Activity implements OnDownloadListener,
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        Intent myIntent = new Intent(getApplicationContext(), ChannelActivity.class);
+        myIntent.putExtra("CHAN_ID", id);
+        startActivity(myIntent);
     }
 }

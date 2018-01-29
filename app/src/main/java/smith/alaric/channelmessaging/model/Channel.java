@@ -4,16 +4,16 @@ package smith.alaric.channelmessaging.model;
  * Created by smithal on 22/01/2018.
  */
 public class Channel {
-    private int id;
+    private int channelID;
     private String name;
     private int connectedusers;
 
-    public int getId() {
-        return id;
+    public int getChannelID() {
+        return channelID;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setChannelID(int channelID) {
+        this.channelID = channelID;
     }
 
     public int getConnectedusers() {
