@@ -22,7 +22,7 @@ import javax.net.ssl.HttpsURLConnection;
  */
 public class HttpPostHandler extends AsyncTask<PostRequest, Integer, String> {
 
-    private ArrayList<OnDownloadListener> listeners;
+    private ArrayList<OnDownloadListener> listeners = new ArrayList<OnDownloadListener>();
 
     public ArrayList<OnDownloadListener> getListeners() {
         return listeners;

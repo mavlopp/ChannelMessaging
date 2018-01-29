@@ -2,6 +2,8 @@ package smith.alaric.channelmessaging;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,14 +12,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
+
+import smith.alaric.channelmessaging.model.Connect;
 
 public class LoginActivity extends Activity implements View.OnClickListener, OnDownloadListener {
 
     private Button valider;
     private EditText login;
     private EditText password;
+
+    public static final String PREFS_NAME = "MyPrefsFile";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,14 +50,33 @@ public class LoginActivity extends Activity implements View.OnClickListener, OnD
         HttpPostHandler handler = new HttpPostHandler();
         handler.addOnDownloadListener(this);
         handler.execute(p);
+
+
     }
 
     @Override
     public void onDownloadComplete(String downloadedContent) {
         Context c = getApplicationContext();
         int duration = Toast.LENGTH_LONG;
-        Toast t = Toast.makeText(c, downloadedContent, duration);
-        t.show();
+        //Toast t = Toast.makeText(c, downloadedContent, duration);
+
+        Gson gson = new Gson();
+        Connect obj = gson.fromJson(downloadedContent, Connect.class);
+
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("accesstoken", obj.getAccesstoken());
+        // Commit the edits!
+        editor.commit();
+
+        if(obj.getCode() == 200){
+            Intent myIntent = new Intent(getApplicationContext(),ChannelListActivity.class);
+            startActivity(myIntent);
+
+        } else {
+            Toast t = Toast.makeText(c, "Erreur code "+obj.getCode()+": "+obj.getResponse(), duration);
+            t.show();
+        }
     }
 
     @Override
@@ -56,4 +86,5 @@ public class LoginActivity extends Activity implements View.OnClickListener, OnD
         Toast t = Toast.makeText(c, error, duration);
         t.show();
     }
+
 }
