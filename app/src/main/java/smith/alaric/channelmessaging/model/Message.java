@@ -9,6 +9,7 @@ public class Message {
     private String message;
     private String date;
     private String imageUrl;
+    private String username;
 
     public int getUserID() {
         return userID;
@@ -24,6 +25,10 @@ public class Message {
 
     public String getDate() {
         return date;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     public Message(){

@@ -6,32 +6,30 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:id="@+id/date"
-        android:text="time" />
+        android:textColor="@android:color/darker_gray"
+        android:text="date" />
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="382dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:weightSum="1">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/user"
-            android:text="user"
-            android:layout_weight="0.29" />
+            android:textColor="@android:color/holo_blue_dark"
+            android:text="user " />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/message"
-            android:text="msg"
-            android:layout_weight="0.16" />
+            android:textColor="@android:color/black" />
     </LinearLayout>
 
 </LinearLayout>

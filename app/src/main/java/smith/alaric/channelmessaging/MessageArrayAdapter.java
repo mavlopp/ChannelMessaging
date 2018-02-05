@@ -33,6 +33,12 @@ public class MessageArrayAdapter extends ArrayAdapter<Message> {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.message_layout, parent, false);
+        TextView date = (TextView) rowView.findViewById(R.id.date);
+        TextView user = (TextView) rowView.findViewById(R.id.user);
+        TextView message = (TextView) rowView.findViewById(R.id.message);
+        date.setText(values.get(position).getDate());
+        user.setText(values.get(position).getUsername()+"  ");
+        message.setText(values.get(position).getMessage());
         return rowView;
     }
 }
