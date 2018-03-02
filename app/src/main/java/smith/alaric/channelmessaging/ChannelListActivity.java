@@ -29,8 +29,7 @@ import smith.alaric.channelmessaging.model.Connect;
  */
 public class ChannelListActivity extends Activity implements OnDownloadListener, AdapterView.OnItemClickListener {
 
-    private ListView lv;
-    private TextView tv;
+    //private ListView lv;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,8 +37,7 @@ public class ChannelListActivity extends Activity implements OnDownloadListener,
         setContentView(R.layout.activity_list_channel);
         Context c = getApplicationContext();
 
-        lv = (ListView) findViewById(R.id.listView);
-        tv = (TextView) findViewById(R.id.textView);
+        //lv = (ListView) findViewById(R.id.listView);
 
 
         String token;
@@ -61,8 +59,8 @@ public class ChannelListActivity extends Activity implements OnDownloadListener,
         Gson gson = new Gson();
         ChannelList obj = gson.fromJson(downloadedContent, ChannelList.class);
 
-        lv.setAdapter(new MyArrayAdapter(getApplicationContext(), obj.getList()));
-        lv.setOnItemClickListener(this);
+        //lv.setAdapter(new MyArrayAdapter(getApplicationContext(), obj.getList()));
+        //lv.setOnItemClickListener(this);
     }
 
     @Override

@@ -68,7 +68,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, OnD
         editor.commit();
 
         if(obj.getCode() == 200){
-            Intent myIntent = new Intent(getApplicationContext(),ChannelListActivity.class);
+            Intent myIntent = new Intent(getApplicationContext(),MainActivity.class);
             startActivity(myIntent);
 
         } else {
