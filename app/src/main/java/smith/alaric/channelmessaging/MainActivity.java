@@ -29,13 +29,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         ChannelListFragment fragA = (ChannelListFragment)getSupportFragmentManager().findFragmentById(R.id.fragmentA_ID);
         MessageFragment fragB = (MessageFragment)getSupportFragmentManager().findFragmentById(R.id.fragmentB_ID);
         if(fragB == null|| !fragB.isInLayout()){
-            Intent i = new Intent(getApplicationContext(),MessageActivity.class);
+            Intent i = new Intent(getApplicationContext(), MessageActivity.class);
             i.putExtra("CHAN_ID", id);
             startActivity(i);
         } else {
             //fragB.fillTextView(fragA.listItems[position]);
             fragB.changeChannel(id);
-            Context c = getApplicationContext();
         }
     }
 }
