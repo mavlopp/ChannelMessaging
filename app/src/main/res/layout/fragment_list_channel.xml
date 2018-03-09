@@ -13,7 +13,15 @@
             android:id="@+id/listView"
             android:layout_gravity="center_horizontal"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentTop="true" />
+            android:layout_below="@+id/btFriends" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MES AMIS"
+            android:id="@+id/btFriends"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 </LinearLayout>

@@ -7,13 +7,25 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
-    <fragment
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:name="smith.alaric.channelmessaging.Fragments.ChannelListFragment"
-        android:id="@+id/fragmentA_ID"
-        tools:layout="@layout/fragment_list_channel" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="198dp"
+        android:layout_height="match_parent">
+
+        Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="MES AMIS"
+            android:id="@+id/btFriends" />
+
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:name="smith.alaric.channelmessaging.Fragments.ChannelListFragment"
+            android:id="@+id/fragmentA_ID"
+            tools:layout="@layout/fragment_list_channel" />
+    </LinearLayout>
 
     <fragment
         android:layout_width="0dp"

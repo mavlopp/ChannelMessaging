@@ -8,7 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -16,7 +16,7 @@ import com.google.gson.Gson;
 
 import java.util.HashMap;
 
-import smith.alaric.channelmessaging.ChannelActivity;
+import smith.alaric.channelmessaging.FriendsActivity;
 import smith.alaric.channelmessaging.HttpPostHandler;
 import smith.alaric.channelmessaging.LoginActivity;
 import smith.alaric.channelmessaging.MainActivity;
@@ -29,13 +29,15 @@ import smith.alaric.channelmessaging.model.ChannelList;
 /**
  * Created by smithal on 26/02/2018.
  */
-public class ChannelListFragment extends Fragment implements OnDownloadListener {
+public class ChannelListFragment extends Fragment implements OnDownloadListener, View.OnClickListener  {
     private ListView lv;
+    private Button friends;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_list_channel,container);
         lv = (ListView)v.findViewById(R.id.listView);
+        friends = (Button)v.findViewById(R.id.btFriends);
         Context c = getActivity().getApplicationContext();
 
         String token;
@@ -43,6 +45,7 @@ public class ChannelListFragment extends Fragment implements OnDownloadListener 
         token = settings.getString("accesstoken", null);
 
         //Toast t = Toast.makeText(c, token, Toast.LENGTH_LONG);
+        friends.setOnClickListener(this);
 
         HashMap<String, String> myMap = new HashMap<String, String>();
         myMap.put("accesstoken", token);
@@ -70,4 +73,9 @@ public class ChannelListFragment extends Fragment implements OnDownloadListener 
         t.show();
     }
 
+    @Override
+    public void onClick(View v) {
+        Intent i = new Intent(getContext(), FriendsActivity.class);
+        startActivity(i);
+    }
 }

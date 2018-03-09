@@ -8,8 +8,10 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import smith.alaric.channelmessaging.model.Channel;
+import smith.alaric.channelmessaging.model.Message;
 
 /**
  * Created by smithal on 29/01/2018.

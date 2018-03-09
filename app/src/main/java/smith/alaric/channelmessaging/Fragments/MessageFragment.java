@@ -1,14 +1,17 @@
 package smith.alaric.channelmessaging.Fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -24,12 +27,14 @@ import smith.alaric.channelmessaging.MessageArrayAdapter;
 import smith.alaric.channelmessaging.OnDownloadListener;
 import smith.alaric.channelmessaging.PostRequest;
 import smith.alaric.channelmessaging.R;
+import smith.alaric.channelmessaging.db.UserDatasource;
+import smith.alaric.channelmessaging.model.Message;
 import smith.alaric.channelmessaging.model.MessageList;
 
 /**
  * Created by smithal on 26/02/2018.
  */
-public class MessageFragment extends Fragment implements OnDownloadListener, View.OnClickListener {
+public class MessageFragment extends Fragment implements OnDownloadListener, View.OnClickListener, AdapterView.OnItemClickListener {
 
     private ListView lv;
     private EditText tv;
@@ -39,7 +44,6 @@ public class MessageFragment extends Fragment implements OnDownloadListener, Vie
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_message, container);
-        super.onCreate(savedInstanceState);
         Context c = getActivity().getApplicationContext();
 
         lv = (ListView) v.findViewById(R.id.listView2);
@@ -58,6 +62,7 @@ public class MessageFragment extends Fragment implements OnDownloadListener, Vie
         };
 
         handler.postDelayed(r, 1000);
+        lv.setOnItemClickListener(this);
         return v;
     }
 
@@ -87,8 +92,6 @@ public class MessageFragment extends Fragment implements OnDownloadListener, Vie
         SharedPreferences settings = getActivity().getSharedPreferences(LoginActivity.PREFS_NAME, 0);
         token = settings.getString("accesstoken", null);
 
-        Log.d("msg", "Sand " + tv.getText().toString() + " to chan "+ chanId);
-
         HashMap<String, String> myMap = new HashMap<String, String>();
         myMap.put("accesstoken", token);
         myMap.put("channelid", String.valueOf(chanId));
@@ -109,9 +112,11 @@ public class MessageFragment extends Fragment implements OnDownloadListener, Vie
     }
 
     public void Post(double chan_id){
-        String token;
-        SharedPreferences settings = getActivity().getSharedPreferences(LoginActivity.PREFS_NAME, 0);
-        token = settings.getString("accesstoken", null);
+        String token = "";
+        if(getActivity() != null) {
+            SharedPreferences settings = getActivity().getSharedPreferences(LoginActivity.PREFS_NAME, 0);
+            token = settings.getString("accesstoken", null);
+        }
 
 
 
@@ -126,5 +131,29 @@ public class MessageFragment extends Fragment implements OnDownloadListener, Vie
 
     public void changeChannel(final long chan_id){
         this.chanId = chan_id;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
+        final Message item = (Message) parent.getItemAtPosition(position);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Attention")
+                .setMessage("Voulez-vous ajouter cette personne à votre liste d'amis ?")
+                .setCancelable(false)
+                .setPositiveButton("OUI", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        UserDatasource ud = new UserDatasource(getContext());
+                        ud.open();
+                        ud.createFriend(item.getUsername(), item.getImageUrl());
+                        ud.close();
+                    }
+                }).setNegativeButton("NON", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                }
+        );
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }
