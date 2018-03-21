@@ -7,9 +7,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -23,6 +27,7 @@ import smith.alaric.channelmessaging.model.Message;
 public class MessageArrayAdapter extends ArrayAdapter<Message> {
     private final Context context;
     private final ArrayList<Message> values;
+    private ImageView img;
     public MessageArrayAdapter(Context context, ArrayList<Message> values) {
         super(context, R.layout.rowlayout, values);
         this.context = context;
@@ -36,9 +41,15 @@ public class MessageArrayAdapter extends ArrayAdapter<Message> {
         TextView date = (TextView) rowView.findViewById(R.id.date);
         TextView user = (TextView) rowView.findViewById(R.id.user);
         TextView message = (TextView) rowView.findViewById(R.id.message);
+        img = (ImageView) rowView.findViewById(R.id.ivSent);
         date.setText(values.get(position).getDate());
         user.setText(values.get(position).getUsername()+"  ");
         message.setText(values.get(position).getMessage());
+        loadImageFromUrl(values.get(position).getImageUrl());
         return rowView;
+    }
+
+    public void loadImageFromUrl(String url) {
+        Glide.with(getContext()).load(url).override(1200, 400).into(img);
     }
 }

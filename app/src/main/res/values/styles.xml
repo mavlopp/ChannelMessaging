@@ -8,4 +8,18 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="TextLabel" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Hint color et label color si pas de focus -->
+        <item name="android:textColorHint">@color/grey_500</item>
+        <item name="android:textSize">20sp</item>
+        <!-- bar color -->
+        <item name="colorControlNormal">@color/grey_500</item>
+        <!-- Label color si focus -->
+        <item name="colorControlActivated">@color/blue_800</item>
+    </style>
+
+    <style name="Button" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:background">@color/teal_400</item>
+    </style>
+
 </resources>

@@ -1,6 +1,7 @@
 package smith.alaric.channelmessaging;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.google.gson.Gson;
@@ -23,7 +25,7 @@ import java.util.HashMap;
 import smith.alaric.channelmessaging.model.Connect;
 
 public class LoginActivity extends Activity implements View.OnClickListener, OnDownloadListener {
-
+    private ImageView ChanLogo;
     private Button valider;
     private EditText login;
     private EditText password;
@@ -35,10 +37,11 @@ public class LoginActivity extends Activity implements View.OnClickListener, OnD
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        valider = (Button) findViewById(R.id.bValider);
+        valider = (Button) findViewById(R.id.btValider);
         valider.setOnClickListener(this) ;
-        login = (EditText) findViewById(R.id.editLogin);
-        password = (EditText) findViewById(R.id.editPwd);
+        login = (EditText) findViewById(R.id.login);
+        password = (EditText) findViewById(R.id.password);
+        ChanLogo = (ImageView) findViewById(R.id.logo);
     }
 
     @Override
@@ -69,6 +72,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, OnD
 
         if(obj.getCode() == 200){
             Intent myIntent = new Intent(getApplicationContext(),MainActivity.class);
+            //startActivity(myIntent, ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this, ChanLogo, "logo").toBundle());
             startActivity(myIntent);
 
         } else {
